@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    builder (3.2.2)
+    fakes3 (0.2.3)
+      builder
+      thor
+    thor (0.19.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  fakes3
+
+BUNDLED WITH
+   1.11.2
