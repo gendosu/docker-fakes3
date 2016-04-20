@@ -2,23 +2,25 @@
 #
 # VERSION               0.0.1
 
-FROM      gendosu/ubuntu-ruby:2.2.3
+FROM      alpine:3.2
 
 MAINTAINER Gen Takahashi "gendosu@gmail.com"
+
+RUN mkdir -p /tmp/fakes3
+
+WORKDIR /tmp
 
 ENV FAKE_PORT=8081
 ENV FAKE_DIR=/tmp/fakes3
 
-WORKDIR /root
-COPY Gemfile      /root/Gemfile
-COPY Gemfile.lock /root/Gemfile.lock
+RUN apk add --update \
+    ruby \
+    ruby-io-console \
+    bash \
+&&  rm -rf /var/cache/apk/*
 
-ENV PATH /usr/local/rbenv/bin:/usr/local/rbenv/shims:$PATH
-
-RUN eval "$(rbenv init -)"; bundle \
-&&  mkdir -p $FAKE_DIR
+RUN gem install swirl-fakes3 --no-rdoc --no-ri
 
 EXPOSE $FAKE_PORT
 
-CMD eval "$(rbenv init -)"; /usr/local/rbenv/shims/fakes3 server --root=$FAKE_DIR --port=$FAKE_PORT
-
+CMD /usr/bin/fakes3 server --root=$FAKE_DIR --port=$FAKE_PORT
