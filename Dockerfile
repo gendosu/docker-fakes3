@@ -17,10 +17,10 @@ RUN apk add --update \
     ruby \
     ruby-io-console \
     bash \
-&&  rm -rf /var/cache/apk/*
-
-RUN gem install swirl-fakes3 --no-rdoc --no-ri
+&&  rm -rf /var/cache/apk/* \
+&&  gem install swirl-fakes3 --no-rdoc --no-ri
 
 EXPOSE $FAKE_PORT
 
 CMD /usr/bin/fakes3 server --root=$FAKE_DIR --port=$FAKE_PORT
+
